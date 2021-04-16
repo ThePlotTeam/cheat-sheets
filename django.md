@@ -65,7 +65,7 @@ def some_view(request):
 
 ### Create a model form rendering using Django ModelForm
 
-`views.py`:
+`views.py`
 ```py
 def model_create_view(request):
 	form = ModelForm(request.POST or None)
@@ -103,7 +103,7 @@ class MyForm(forms.Form):
 	value2 = forms.NumberField()
 ```
 
-`views.py`:
+`views.py`
 ```py
 from .forms import MyForm
 
@@ -139,7 +139,7 @@ def model_create_view(request):
 
 ### Create a model form rendering using raw HTML
 
-`views.py`:
+`views.py`
 ```py
 def model_create_view(request):
 	
@@ -178,3 +178,21 @@ def model_create_view(request):
 `Model.object.get(**args)` : return the objects matching the arguments
 
 `Model.object.create(**args)` : create an object
+
+<br></br>
+## 4. Form Validation
+
+```py
+class MyForm(forms.Form):
+	value1 = forms.CharField()
+	value2 = forms.NumberField()
+
+	# Validation methods
+	def clean_value1(self, *args, **kwargs):
+		if condition:
+			raise forms.ValidationError("condition is not fullfilled")
+	
+	def clean_value2(...):
+		...
+	
+```
