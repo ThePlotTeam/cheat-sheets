@@ -189,6 +189,7 @@ class MyForm(forms.Form):
 
 	# Validation methods
 	def clean_value1(self, *args, **kwargs):
+		value = self.cleaned_data.get("value1")
 		if condition:
 			raise forms.ValidationError("condition is not fullfilled")
 	
