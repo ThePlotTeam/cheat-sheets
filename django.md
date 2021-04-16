@@ -172,12 +172,38 @@ def model_create_view(request):
 
 <br></br>
 
-## 3. Models
-`Model.object.all()` : return all the instances of Model
+## 3. Model Manager
+---
+- `Model.objects.create(**args)` : create a **Model** object
 
-`Model.object.get(**args)` : return the objects matching the arguments
+- `Model.objects.all()` : return all the instances of **Model**
 
-`Model.object.create(**args)` : create an object
+- `Model.objects.get(**args)` : return the (unique) **Model** objects matching the arguments
+
+- `Model.objects.filter(**args)` : same as get() but with any number of matching records
+
+- `Model.objects.exclude(**args)` : opposite of filter (include unmatched records)
+
+
+### One-To-Many Relations
+
+Quick Example:
+```py
+from django.db import models
+
+class A(models.Model):
+	name = models.CharField(...)
+
+class B(models.Model):
+	name = models.CharField(...)
+	a_link = models.ForeignField(A, models.CASCADE)
+```
+
+Here, there is a one-to-many relation from **A** to **B**.
+
+We can get the instance of model A from B with `B_instance.a_link`.
+
+Conversely, we can get all the instances of B connected to A with `A_instance.b_set.all()`. 'b_set' is internally created by django and depends on the name of the class **B** (but always full lowercase).
 
 <br></br>
 ## 4. Form Validation
@@ -194,6 +220,6 @@ class MyForm(forms.Form):
 			raise forms.ValidationError("condition is not fullfilled")
 	
 	def clean_value2(...):
-		...
+		<...>
 	
 ```
